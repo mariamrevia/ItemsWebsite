@@ -1,0 +1,142 @@
+.navbar--div {
+    display: flex;
+    flex-direction: row;
+    width: 1440px;
+    height: 80px;
+}
+
+.navbar-category-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 32px;
+    flex-direction: column;
+    height: 52px;
+
+
+}
+
+.line {
+    height: 2px;
+    width: 130px;
+    background-color: #5ECE7B;
+}
+
+.navbar-category {
+    display: flex;
+    margin-left: 117px;
+    width: 500px;
+    height: 30px;
+    margin-top: 28px;
+
+
+
+}
+
+.categoryname {
+    
+    border: none;
+    margin: 0%;
+    width: auto;
+    height: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: #5ECE7B;
+    text-transform: uppercase;
+    background-color: white;
+    border: none;
+
+
+}
+
+.categoryname.active {
+    background-color: #5ECE7B;
+}
+
+.icon-img {
+    display: flex;
+    Width: 31.18px;
+    Height: 28.62px;
+    margin-left: 368.92px;
+    margin-top: 28px;
+
+}
+
+.currency-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 28.5px;
+    width: 40px;
+    height: 40px;
+    margin-left: 533.8px;
+}
+
+.currency--list {
+    position: absolute;
+    top: 65px;
+    z-index: 2;
+    box-shadow: 3px 3px 20px 3px rgb(241, 240, 240);
+    background: white;
+    width: 114px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-left: 1248px;
+
+}
+
+.currency-option:hover {
+    background-color: #EEEEEE;
+    ;
+
+}
+
+.currency-option {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 114px;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.BsChevron-div {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: flex-end;
+}
+
+.BsChevronDown {
+    margin-left: 10px;
+    width: 12px;
+    height: 12px;
+}
+
+.BsChevronUp {
+    margin-left: 10px;
+    width: 12px;
+    height: 12px;
+}
+
+.cart-icon-div {
+    display: flex;
+    height: 25px;
+    margin-top: 34.17px;
+    align-items: center;
+    margin-left: 22px;
+    margin-right: 101px;
+}
+
+.category-ul {
+    display: flex;
+    align-items: center;
+    margin-top: 0%;
+    height: 20px;
+
+    justify-content: flex-start;
+    padding: 0%;
+    gap: 32px;
+}
