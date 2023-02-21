@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Tech from "./components/tech"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { Link } from 'react-router-dom';
-import {  useResolvedPath, useMatch } from "react-router-dom"
-
+import { useResolvedPath, useMatch } from "react-router-dom"
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+
 import Main from './Main';
 const All = gql`
 
@@ -49,8 +50,11 @@ query Category ($input: CategoryInput) {
 function App() {
   const [category, setCategory] = useState("");
   const [categoryName, setCategoryName] = useState("")
-  const [activebtn, setActiveBtn] = useState(false)
+  
+
   const { data } = useQuery(All)
+
+  const [handleData, setData] = useState([])
 
   const [refetch, {
     data: productData, error: productError, loading
@@ -61,19 +65,38 @@ function App() {
       }
     },
   })
-  
 
+
+
+
+const navigate = useNavigate ()
 
   const handleClick = (newCategory) => {
-    // e.preventDefault ()
-
+  
+   
     setCategory(newCategory);
     setCategoryName(newCategory)
-    setActiveBtn(true)
+    
     refetch({
       input: newCategory
-    });
+    }).then (res => 
+      
+      navigate("/Main",{
+        state: {
+          handleDatas:res.data.category.products,
+          newCategorys:newCategory
+
+        }
+      })
+      
+      
+      
+      )
+
     console.log("sdfsf")
+
+
+
   };
 
 
@@ -85,43 +108,36 @@ function App() {
     return <div>Error: {productError.message}</div>;
   }
 
- 
+
 
 
   return (
     <div className="App">
       <Navbar
-      activebtn={activebtn}
         navbutton={
           data &&
           data.categories.map((category) => {
             console.log(category.name)
-
             return (
               <div className='btn-div'>
-                <CustomLink to="/Main">
-
-                  <button
-
-                    onClick={() => handleClick(category.name)}
-                    className='categoryname'
-                  >{category.name}</button>
-                </CustomLink>
+                <button to="/Main"
+                  onClick={() => handleClick(category.name)}
+                  className='categoryname'
+                >{category.name}</button>
 
               </div>
             )
-          })
+          })} />
 
 
-        }
-                 
-      />
+
+
+
+
+
       <Routes>
         <Route path='/Main' element={
-          <Main
-            productData={productData}
-            categoryName={categoryName}
-          />} />
+          <Main/>} />
         <Route to="/tech" element={<Tech />} />
 
       </Routes>
@@ -132,16 +148,16 @@ function App() {
   );
 }
 
-function CustomLink ({to , children , ...props}) {
-  const resolvedPath = useResolvedPath (to)
-  const isAqtivePath = useMatch({path:resolvedPath.pathname, end:true})
-  return (
-   
-      <Link to={to} {...props}>
-      {children}
-      </Link>
-   
-  )
-}
+// function CustomLink({ to, children, ...props }) {
+//   const resolvedPath = useResolvedPath(to)
+//   const isAqtivePath = useMatch({ path: resolvedPath.pathname, end: true })
+//   return (
+
+//     <Link to={to} {...props}>
+//       {children}
+//     </Link>
+
+//   )
+// }
 
 export default App;

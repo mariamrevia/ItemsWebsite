@@ -41,7 +41,7 @@ query Category ($input: CategoryInput) {
 
 const Navbar = ({
   navbutton,
-  activebtn
+
 }) => {
   console.log(navbutton)
   const navigate = useNavigate()
@@ -97,13 +97,7 @@ const Navbar = ({
     console.log(symbol)
   }
 
-  function handleline () {
-    if(activebtn) {
-      return "btn-line"
-    } else if (!activebtn) {
-      return "btn-line-none"
-    }
-  }
+ 
 
 
   return (
