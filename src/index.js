@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from "react-redux";
+import store from "./store";
 
 
 const client = new ApolloClient({
@@ -17,9 +19,11 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <Provider store={store}>
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
+  </Provider>
   </BrowserRouter>
 );
 

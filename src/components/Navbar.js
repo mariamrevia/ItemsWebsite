@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react'
-import { useQuery, gql, useLazyQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import "./navbar.css"
 import icon from "../images/icon.png"
 import { BsCurrencyDollar } from "react-icons/bs"
 import { BsChevronDown, BsChevronUp, BsCart2 } from "react-icons/bs"
-import { Link, useResolvedPath, useMatch } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,8 +13,6 @@ const All = gql`
 query getAll {
   categories {
     name
-
-
   }
   currencies {
     label 
@@ -41,64 +38,20 @@ query Category ($input: CategoryInput) {
 
 const Navbar = ({
   navbutton,
+  currencies,
+  currencyselected,
+  setCurrencySelected
 
 }) => {
-  console.log(navbutton)
+
+  
   const navigate = useNavigate()
-  const [currencyselected, setCurrencySelected] = useState("")
+  // const [currencyselected, setCurrencySelected] = useState("")
   const [isdivActive, setIsDivActiv] = useState(false)
-  // const [category, setCategory] = useState("");
-
-
-  const { data } = useQuery(All)
-  // const { data, loading, error, refetch } = useQuery(GET_PRODUCT_CATEGORY ,{
-  //   variables: {
-  //     input: {
-  //       title: category
-  //     }
-  //   },
-  // });
-
-  // const [refetch, {
-  //   data: productData, error: productError, loading
-  // }] = useLazyQuery(GET_PRODUCT_CATEGORY, {
-  //   variables: {
-  //     input: {
-  //       title: category
-  //     }
-  //   },
-  // })
-
-
-
-
-  // const handleClick = (newCategory) => {
-  //   setCategory(newCategory);
-  //   refetch({
-  //     input: newCategory
-  //   });
-  //   console.log("sdfsf")
-  // };
-
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (productError) {
-  //   return <div>Error: {productError.message}</div>;
-  // }
-
-
-
-  const handlecurrency = (e, symbol) => {
-    e.preventDefault()
-    setCurrencySelected(symbol)
-    console.log(symbol)
-  }
-
- 
-
+  
+  
+  const {data} = useQuery(All)
+  
 
   return (
     <div>
@@ -106,29 +59,8 @@ const Navbar = ({
 
       <div className='navbar--div'>
         <div className='navbar-category'>
-          
-
-              {navbutton}
-              
-              {/* {data &&
-                data.categories.map((category) => {
-                  console.log(category.name)
-
-                  return (
-                    <button
-                      className='categoryname'
-                      onClick={() => handleClick(category.name)}>{category.name}</button>
-
-                  )
-                })
-              } */}
-            
-
-         
+          {navbutton}
         </div>
-       
-
-
 
         <img src={icon} alt="" className='icon-img'></img>
         <div className='currency-div'
@@ -148,18 +80,8 @@ const Navbar = ({
           </div>
         </div>
         {isdivActive && (
-          <div className='currency--list'>
-            {
-              data.currencies.map(({ label, symbol }) => (
-                <div className='currency-option'
-                  onClick={(e) => handlecurrency(e, symbol)}
-                >
-                  <div className='currency-symbol-div' >{symbol} {label}</div>
-                  {/* <div className='currency-label-div'>{label}</div> */}
-                </div>
-              ))
-            }
-
+          <div className='currency--list'>         
+          {currencies}
           </div>
         )}
         <div className='cart-icon-div'>
@@ -170,9 +92,6 @@ const Navbar = ({
 
 
       </div>
-
-
-
       <div>
         <div>
         </div>

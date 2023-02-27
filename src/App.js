@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Tech from "./components/tech"
-import { Routes, Route, Navigate } from "react-router-dom"
-import { Link } from 'react-router-dom';
-import { useResolvedPath, useMatch } from "react-router-dom"
+import Product from './Product';
+import { Routes, Route } from "react-router-dom"
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { currencyAction } from './store/currency';
 
 import Main from './Main';
+import { useRadioGroup } from '@material-ui/core';
 const All = gql`
 
 query getAll {
@@ -50,11 +52,12 @@ query Category ($input: CategoryInput) {
 function App() {
   const [category, setCategory] = useState("");
   const [categoryName, setCategoryName] = useState("")
-  
+  const [currencyselected, setCurrencySelected] = useState("")
 
   const { data } = useQuery(All)
 
-  const [handleData, setData] = useState([])
+
+  const dispatch = useDispatch()
 
   const [refetch, {
     data: productData, error: productError, loading
@@ -69,35 +72,41 @@ function App() {
 
 
 
-const navigate = useNavigate ()
+  const navigate = useNavigate()
+
+  const handlecurrency = ( symbol, i ) => {
+
+    dispatch(currencyAction.changeIndex(
+      i,
+    
+    ))
+    console.log(i)
+    // const index = i
+    // setIndex(index)
+    // e.preventDefault()
+    setCurrencySelected(symbol)
+  }
+
+
+
 
   const handleClick = (newCategory) => {
-  
-   
     setCategory(newCategory);
     setCategoryName(newCategory)
-    
     refetch({
       input: newCategory
-    }).then (res => 
-      
-      navigate("/Main",{
+    }).then(res =>
+
+      navigate("/Main", {
         state: {
-          handleDatas:res.data.category.products,
-          newCategorys:newCategory
+          handleDatas: res.data.category.products,
+          newCategorys: newCategory,
 
         }
       })
-      
-      
-      
-      )
-
-    console.log("sdfsf")
-
-
-
+    )
   };
+
 
 
   if (loading) {
@@ -117,7 +126,8 @@ const navigate = useNavigate ()
         navbutton={
           data &&
           data.categories.map((category) => {
-            console.log(category.name)
+
+            // console.log(category.name)
             return (
               <div className='btn-div'>
                 <button to="/Main"
@@ -127,18 +137,39 @@ const navigate = useNavigate ()
 
               </div>
             )
-          })} />
+          })}
+        currencies=
+        {data && data.currencies.map(({ label, symbol }, index) => {
+          console.log(data.currencies)
+          return (
+
+            <div
+              key={index}
+              className='currency-option'
+              onClick={(e) => handlecurrency( symbol, index)}
+
+            >
+              <div className='currency-symbol-div' >{symbol} {label}</div>
+
+            </div>
+          )
+        }
+
+
+        )
+        }
+        currencyselected={currencyselected}
+        setCurrencySelected={setCurrencySelected}
 
 
 
-
-
-
+      />
 
       <Routes>
-        <Route path='/Main' element={
-          <Main/>} />
-        <Route to="/tech" element={<Tech />} />
+
+        <Route path='/Main' element={<Main/>} />
+        <Route path="/tech" element={<Tech />} />
+        <Route path="/product/:id" element={<Product />} />
 
       </Routes>
 
@@ -148,16 +179,5 @@ const navigate = useNavigate ()
   );
 }
 
-// function CustomLink({ to, children, ...props }) {
-//   const resolvedPath = useResolvedPath(to)
-//   const isAqtivePath = useMatch({ path: resolvedPath.pathname, end: true })
-//   return (
-
-//     <Link to={to} {...props}>
-//       {children}
-//     </Link>
-
-//   )
-// }
 
 export default App;
