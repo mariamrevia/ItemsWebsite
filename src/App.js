@@ -8,9 +8,7 @@ import { useQuery, gql, useLazyQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { currencyAction } from './store/currency';
-
 import Main from './Main';
-import { useRadioGroup } from '@material-ui/core';
 const All = gql`
 
 query getAll {
@@ -160,13 +158,9 @@ function App() {
         }
         currencyselected={currencyselected}
         setCurrencySelected={setCurrencySelected}
-
-
-
       />
 
       <Routes>
-
         <Route path='/Main' element={<Main/>} />
         <Route path="/tech" element={<Tech />} />
         <Route path="/product/:id" element={<Product />} />

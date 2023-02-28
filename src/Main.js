@@ -16,7 +16,10 @@ query product($productId: String!) {
       gallery
       description
       prices {
-        currency
+        currency {
+          symbol
+          label
+        }
         amount
       }
       attributes {
@@ -30,6 +33,7 @@ query product($productId: String!) {
             }
             
         } 
+        description
     
     }
   }

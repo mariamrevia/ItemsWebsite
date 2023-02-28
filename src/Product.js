@@ -1,7 +1,10 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import "./product.css"
+import { useSelector } from 'react-redux'
+// import styled from 'styled-components'
+
 
 
 
@@ -15,36 +18,43 @@ const Product = () => {
     )
 
 
-
-    // const { id } = useParams()
-    // const [refetch, {
-    //     data: productData, error: productError, loading
-    // }] = useLazyQuery(GET_PRODUCT, {
-    //     variables: {
-    //         productId: {
-    //             productId: "apple-iphone-12-pro"
-    //         }
-    //     },
-    // })
-
-
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    //   }
-
-    //   if (productError) {
-    //     return <div>Error: {productError.message}</div>;
-    //   }
-
-
-
+    const currencyIndex = useSelector((state) => state.currency.index)
+    const [mainImg, setMainImg] = useState(productData.gallery[0])
+    console.log(mainImg)
 
 
 
     return (
         <div className='specific-product-div'>
 
-            <section>
+            <section className='img-section'>
+
+
+                <div className='img-grid-1'>
+                    {
+                        productData.gallery.map((img, index) => {
+                            return (
+                                <figure>
+                                    <img
+                                        onClick={() => setMainImg(img)}
+                                        key={index}
+                                        className='img-box'
+                                        src={img} alt=""></img>
+                                </figure>
+                            )
+                        })
+
+                    }
+
+
+                </div>
+                <div>
+
+                    <img
+                        className='main-img'
+                        src={mainImg}></img>
+
+                </div>
 
             </section>
             <section>
@@ -71,13 +81,20 @@ const Product = () => {
 
 
                     </div>
-                    {productData.prices.map((price) => {
-                        return (
-                            <div>
-                                <p>{price.amount}</p>
-                                <p>{price.currency}</p>
-                            </div>
-                        )
+                    {productData.prices.map((price, index) => {
+
+                        if (currencyIndex === index) {
+                            return (
+                                <div>
+                                    <h2>{price.__typename}:</h2>
+                                    <div className='product-price-div'>
+
+                                        <p>{price.currency.symbol}</p>
+                                        <p>{price.amount}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
                     })}
                     <p></p>
                     <button className='addCart-btn'>Add to Cart</button>
