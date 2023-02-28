@@ -23,7 +23,7 @@
 
 }
 
-.size-div button {
+.size-div-button {
     display: flex;
     flex-direction: row;
     width: 63px;
@@ -35,6 +35,7 @@
     margin-right: 12px;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
 
 
 }
@@ -122,4 +123,25 @@
     Width: 610px;
     Height: 511px;
     object-fit: fill;
+}
+
+.item-color-btn {
+    text-decoration: none;
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    flex-direction: row;
+
+    border: none;
+
+
+    border-color: black;
+    margin-right: 12px;
+    justify-content: center;
+    align-items: center;
+
+
+    /* box-sizing: border-box;
+    border: 1px solid #5ECE7B; */
 }

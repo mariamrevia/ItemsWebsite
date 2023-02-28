@@ -23,7 +23,6 @@ const Product = () => {
     console.log(mainImg)
 
 
-
     return (
         <div className='specific-product-div'>
 
@@ -53,9 +52,7 @@ const Product = () => {
                     <img
                         className='main-img'
                         src={mainImg}></img>
-
                 </div>
-
             </section>
             <section>
                 <div className='product-desciption'>
@@ -63,18 +60,50 @@ const Product = () => {
                     <div className='size-div'>
 
                         {productData.attributes.map((attribute) => {
-                            return (
-                                <div className='properties-div'>
-                                    <h2>{attribute.name}:</h2>
-                                    <div className='values-div'>
-                                        {attribute.items.map((item) => {
-                                            return (
-                                                <button >{item.displayValue}</button>
-                                            )
-                                        })}
+                            console.log(attribute.id)
+
+                            if (attribute.id == "Color") {
+                                return (
+                                    <div
+                                        className='properties-div'>
+                                        <h2>{attribute.name}:</h2>
+                                        <div className='values-div'>
+                                            {attribute.items.map((item) => {
+                                                return (
+                                                    <button
+                                                        className='item-color-btn'
+                                                        id={item.id}
+                                                        style={{ backgroundColor: item.value }}>
+
+                                                    </button>
+                                                )
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                            )
+                                )
+                            } else if (attribute.id) {
+                                return (
+                                    <div
+                                        className='properties-div'>
+                                        <h2>{attribute.name}:</h2>
+                                        <div className='values-div'>
+                                            {attribute.items.map((item) => {
+                                                return (
+                                                    <button
+                                                    className='size-div-button'
+                                                        id={item.id}
+                                                    >
+                                                        {item.value}
+                                                    </button>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+
+                                )
+
+                            }
+
                         })}
 
 
