@@ -4,6 +4,7 @@ import { useQuery, gql, useLazyQuery } from '@apollo/client'
 import { currencyAction } from './store/currency';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+
 import "./main.css"
 // import { useParams } from 'react-router-dom'
 
@@ -49,11 +50,14 @@ const Main = ({
     const currencyIndex = useSelector((state) => state.currency.index)
     console.log(currencyIndex)
 
+    const attribute = useSelector((state) => state.attribute)
+
+    console.log(attribute)
     // const dispatch = useDispatch ()
     const location = useLocation()
     const { handleDatas, newCategorys } = location.state
 
-    console.log(handleDatas)
+   
 
     const navigate = useNavigate()
 
@@ -157,7 +161,7 @@ const Main = ({
 
 
                                         {product.prices.map((price, index) => {
-                                            console.log(price)
+                                            
                                             if (currencyIndex === index) {
                                                 return (
 

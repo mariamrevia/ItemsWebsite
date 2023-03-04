@@ -76,6 +76,7 @@ function App() {
 
     dispatch(currencyAction.changeIndex(
       i,
+      symbol
     
     ))
     console.log(i)
@@ -138,7 +139,7 @@ function App() {
           })}
         currencies=
         {data && data.currencies.map(({ label, symbol }, index) => {
-          console.log(data.currencies)
+         
           return (
 
             <div
